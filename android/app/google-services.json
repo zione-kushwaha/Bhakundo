@@ -1,0 +1,126 @@
+{
+  "project_info": {
+    "project_number": "568721215732",
+    "project_id": "portfoliobuildersite",
+    "storage_bucket": "portfoliobuildersite.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:568721215732:android:b30796992874bf21e34ea1",
+        "android_client_info": {
+          "package_name": "com.bhakundo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "568721215732-2vkvuft5tndndbndsgk4udopn2mdhdj5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqdSlphT2Qp0BdKmqpaENWvTDtasFl5n0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "568721215732-2vkvuft5tndndbndsgk4udopn2mdhdj5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "568721215732-cr7qvmk1nqtplt0p43r6e0eog70lg7i9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bookaboyfriend"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:568721215732:android:98c12a54b5d9a383e34ea1",
+        "android_client_info": {
+          "package_name": "com.bookaboyfriend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "568721215732-1m358di2bgjs2dorh8cs7bkjkdc55dii.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bookaboyfriend",
+            "certificate_hash": "c0d1493a38e3d0d112c044457f2b8334e127462e"
+          }
+        },
+        {
+          "client_id": "568721215732-2vkvuft5tndndbndsgk4udopn2mdhdj5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqdSlphT2Qp0BdKmqpaENWvTDtasFl5n0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "568721215732-2vkvuft5tndndbndsgk4udopn2mdhdj5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "568721215732-cr7qvmk1nqtplt0p43r6e0eog70lg7i9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bookaboyfriend"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:568721215732:android:dbdb09655e4017a9e34ea1",
+        "android_client_info": {
+          "package_name": "com.management"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "568721215732-2vkvuft5tndndbndsgk4udopn2mdhdj5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqdSlphT2Qp0BdKmqpaENWvTDtasFl5n0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "568721215732-2vkvuft5tndndbndsgk4udopn2mdhdj5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "568721215732-cr7qvmk1nqtplt0p43r6e0eog70lg7i9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bookaboyfriend"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
