@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../core/constants/app_colors.dart';
 import '../../domain/entities/futsal_court.dart';
 
 class CourtCard extends StatelessWidget {
@@ -38,29 +40,30 @@ class CourtCard extends StatelessWidget {
                       );
                     },
                     errorBuilder: (context, error, stackTrace) => Container(
-                      color: theme.primaryColor.withValues(alpha: 0.05),
-                      child: Icon(Icons.image_not_supported_outlined, color: theme.primaryColor),
+                      color: AppColors.primary.withValues(alpha: 0.05),
+                      child: const Icon(Icons.image_not_supported_outlined, color: AppColors.primary),
                     ),
                   ),
                   // Rating Badge
                   Positioned(
-                    top: 12,
-                    right: 12,
+                    top: 12.h,
+                    right: 12.w,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                       decoration: BoxDecoration(
                         color: Colors.black.withValues(alpha: 0.75),
-                        borderRadius: BorderRadius.circular(4),
+                        borderRadius: BorderRadius.circular(4.r),
                       ),
                       child: Row(
                         children: [
-                          const Icon(Icons.star, color: Colors.amber, size: 14),
-                          const SizedBox(width: 4),
+                          Icon(Icons.star, color: Colors.amber, size: 14.r),
+                          SizedBox(width: 4.w),
                           Text(
                             court.rating.toString(),
                             style: theme.textTheme.labelMedium?.copyWith(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
+                              fontSize: 10.sp,
                             ),
                           ),
                         ],
@@ -69,19 +72,19 @@ class CourtCard extends StatelessWidget {
                   ),
                   // Pitch Type Badge
                   Positioned(
-                    bottom: 12,
-                    left: 12,
+                    bottom: 12.h,
+                    left: 12.w,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                       decoration: BoxDecoration(
-                        color: theme.colorScheme.secondary,
-                        borderRadius: BorderRadius.circular(4),
+                        color: AppColors.secondary,
+                        borderRadius: BorderRadius.circular(4.r),
                       ),
                       child: Text(
                         court.pitchType.toUpperCase(),
                         style: theme.textTheme.labelMedium?.copyWith(
                           color: Colors.white,
-                          fontSize: 9,
+                          fontSize: 9.sp,
                           fontWeight: FontWeight.w800,
                           letterSpacing: 0.5,
                         ),
@@ -93,7 +96,7 @@ class CourtCard extends StatelessWidget {
             ),
             // Court Details
             Padding(
-              padding: const EdgeInsets.all(12.0),
+              padding: EdgeInsets.all(12.r),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -102,26 +105,27 @@ class CourtCard extends StatelessWidget {
                     style: theme.textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w700,
                       letterSpacing: -0.2,
+                      fontSize: 14.sp,
                     ),
                   ),
-                  const SizedBox(height: 4),
+                  SizedBox(height: 4.h),
                   Row(
                     children: [
-                      const Icon(Icons.location_on, size: 14, color: Colors.grey),
-                      const SizedBox(width: 4),
+                      Icon(Icons.location_on, size: 14.r, color: Colors.grey),
+                      SizedBox(width: 4.w),
                       Expanded(
                         child: Text(
                           court.address,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: theme.textTheme.bodySmall,
+                          style: theme.textTheme.bodySmall?.copyWith(fontSize: 11.sp),
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8.h),
                   const Divider(),
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -136,10 +140,10 @@ class CourtCard extends StatelessWidget {
                           if (amenity.toLowerCase().contains('wifi')) icon = Icons.wifi;
 
                           return Padding(
-                            padding: const EdgeInsets.only(right: 8.0),
+                            padding: EdgeInsets.only(right: 8.w),
                             child: Tooltip(
                               message: amenity,
-                              child: Icon(icon, size: 16, color: theme.primaryColor.withValues(alpha: 0.6)),
+                              child: Icon(icon, size: 16.r, color: AppColors.primary.withValues(alpha: 0.6)),
                             ),
                           );
                         }).toList(),
@@ -151,13 +155,14 @@ class CourtCard extends StatelessWidget {
                           Text(
                             'NPR ${court.pricePerHour.toInt()}',
                             style: theme.textTheme.titleLarge?.copyWith(
-                              color: theme.primaryColor,
+                              color: AppColors.primary,
                               fontWeight: FontWeight.w800,
+                              fontSize: 16.sp,
                             ),
                           ),
                           Text(
                             'per hour',
-                            style: theme.textTheme.bodySmall?.copyWith(fontSize: 9),
+                            style: theme.textTheme.bodySmall?.copyWith(fontSize: 9.sp),
                           ),
                         ],
                       ),

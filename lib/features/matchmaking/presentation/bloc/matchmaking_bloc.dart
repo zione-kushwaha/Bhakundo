@@ -10,14 +10,11 @@ class MatchmakingBloc extends Bloc<MatchmakingEvent, MatchmakingState> {
   final HostChallengeUseCase _hostChallengeUseCase;
   final AcceptChallengeUseCase _acceptChallengeUseCase;
 
-  MatchmakingBloc({
-    required GetOpenChallengesUseCase getOpenChallengesUseCase,
-    required HostChallengeUseCase hostChallengeUseCase,
-    required AcceptChallengeUseCase acceptChallengeUseCase,
-  })  : _getOpenChallengesUseCase = getOpenChallengesUseCase,
-        _hostChallengeUseCase = hostChallengeUseCase,
-        _acceptChallengeUseCase = acceptChallengeUseCase,
-        super(MatchmakingInitial()) {
+  MatchmakingBloc(
+    this._getOpenChallengesUseCase,
+    this._hostChallengeUseCase,
+    this._acceptChallengeUseCase,
+  ) : super(MatchmakingInitial()) {
     on<LoadOpenChallenges>(_onLoadOpenChallenges);
     on<HostNewChallenge>(_onHostNewChallenge);
     on<AcceptMatchChallenge>(_onAcceptMatchChallenge);

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../core/constants/app_colors.dart';
 import '../../domain/entities/team.dart';
 
 class TeamStatsGrid extends StatelessWidget {
@@ -11,10 +13,10 @@ class TeamStatsGrid extends StatelessWidget {
 
   Widget _buildStatItem(String title, String val, Color color, ThemeData theme) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 12),
+      padding: EdgeInsets.symmetric(vertical: 12.h),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.08),
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(8.r),
         border: Border.all(color: color.withValues(alpha: 0.2)),
       ),
       child: Column(
@@ -22,16 +24,16 @@ class TeamStatsGrid extends StatelessWidget {
           Text(
             title,
             style: theme.textTheme.labelMedium?.copyWith(
-              fontSize: 9,
+              fontSize: 9.sp,
               color: color,
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(height: 4),
+          SizedBox(height: 4.h),
           Text(
             val,
             style: theme.textTheme.titleLarge?.copyWith(
-              fontSize: 16,
+              fontSize: 16.sp,
               fontWeight: FontWeight.bold,
               color: color,
             ),
@@ -52,42 +54,55 @@ class TeamStatsGrid extends StatelessWidget {
         // Win rate linear indicator
         Card(
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(16.r),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('WIN RATE', style: theme.textTheme.labelMedium?.copyWith(fontWeight: FontWeight.bold)),
-                    Text('$winRate%', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, color: theme.colorScheme.secondary)),
+                    Text(
+                      'WIN RATE',
+                      style: theme.textTheme.labelMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 10.sp,
+                      ),
+                    ),
+                    Text(
+                      '$winRate%',
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.secondary,
+                        fontSize: 13.sp,
+                      ),
+                    ),
                   ],
                 ),
-                const SizedBox(height: 8),
+                SizedBox(height: 8.h),
                 ClipRRect(
-                  borderRadius: BorderRadius.circular(4),
+                  borderRadius: BorderRadius.circular(4.r),
                   child: LinearProgressIndicator(
                     value: team.matchesPlayed > 0 ? team.wins / team.matchesPlayed : 0.0,
-                    minHeight: 8,
+                    minHeight: 8.h,
                     backgroundColor: theme.brightness == Brightness.light ? Colors.grey.shade200 : Colors.grey.shade800,
-                    valueColor: AlwaysStoppedAnimation<Color>(theme.colorScheme.secondary),
+                    valueColor: const AlwaysStoppedAnimation<Color>(AppColors.secondary),
                   ),
                 ),
               ],
             ),
           ),
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: 12.h),
         // Stats grid
         Row(
           children: [
             Expanded(child: _buildStatItem('PLAYED', team.matchesPlayed.toString(), Colors.blueGrey, theme)),
-            const SizedBox(width: 8),
-            Expanded(child: _buildStatItem('WINS', team.wins.toString(), Colors.green, theme)),
-            const SizedBox(width: 8),
-            Expanded(child: _buildStatItem('LOSSES', team.losses.toString(), Colors.red, theme)),
-            const SizedBox(width: 8),
-            Expanded(child: _buildStatItem('DRAWS', team.draws.toString(), Colors.orange, theme)),
+            SizedBox(width: 8.w),
+            Expanded(child: _buildStatItem('WINS', team.wins.toString(), AppColors.success, theme)),
+            SizedBox(width: 8.w),
+            Expanded(child: _buildStatItem('LOSSES', team.losses.toString(), AppColors.error, theme)),
+            SizedBox(width: 8.w),
+            Expanded(child: _buildStatItem('DRAWS', team.draws.toString(), AppColors.warning, theme)),
           ],
         ),
       ],

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/widgets/custom_button.dart';
+import '../../../../core/widgets/custom_text_field.dart';
 
 class HostChallengeSheet extends StatefulWidget {
   final void Function(String teamName, String venue, DateTime date, String time) onSubmit;
@@ -33,10 +37,10 @@ class _HostChallengeSheetState extends State<HostChallengeSheet> {
 
     return Padding(
       padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).viewInsets.bottom + 24,
-        top: 24,
-        left: 24,
-        right: 24,
+        bottom: MediaQuery.of(context).viewInsets.bottom + 24.h,
+        top: 24.h,
+        left: 24.w,
+        right: 24.w,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -46,39 +50,42 @@ class _HostChallengeSheetState extends State<HostChallengeSheet> {
             'HOST OPEN CHALLENGE',
             style: theme.textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.bold,
-              color: theme.primaryColor,
+              color: AppColors.primary,
+              fontSize: 18.sp,
             ),
           ),
-          const SizedBox(height: 4),
+          SizedBox(height: 4.h),
           Text(
             'Post a match slot to invite opponents',
-            style: theme.textTheme.bodyMedium,
+            style: theme.textTheme.bodyMedium?.copyWith(fontSize: 12.sp),
           ),
-          const SizedBox(height: 24),
+          SizedBox(height: 24.h),
           
-          // Form Fields
-          TextField(
+          // Form Fields using Core CustomTextField
+          CustomTextField(
             controller: _teamNameController,
-            decoration: const InputDecoration(
-              hintText: 'Your Team Name',
-              prefixIcon: Icon(Icons.shield_outlined),
-            ),
+            hintText: 'Your Team Name',
+            prefixIcon: Icons.shield_outlined,
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16.h),
           
-          TextField(
+          CustomTextField(
             controller: _venueController,
-            decoration: const InputDecoration(
-              hintText: 'Futsal Venue (e.g. Camp Nou)',
-              prefixIcon: Icon(Icons.location_on_outlined),
-            ),
+            hintText: 'Futsal Venue (e.g. Camp Nou)',
+            prefixIcon: Icons.location_on_outlined,
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16.h),
 
           Row(
             children: [
               Expanded(
                 child: OutlinedButton.icon(
+                  style: OutlinedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(vertical: 12.h),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.r),
+                    ),
+                  ),
                   onPressed: () async {
                     final picked = await showDatePicker(
                       context: context,
@@ -92,29 +99,27 @@ class _HostChallengeSheetState extends State<HostChallengeSheet> {
                       });
                     }
                   },
-                  icon: const Icon(Icons.calendar_today, size: 16),
-                  label: Text(DateFormat('d MMM yyyy').format(_matchDate)),
+                  icon: Icon(Icons.calendar_today, size: 16.r),
+                  label: Text(
+                    DateFormat('d MMM yyyy').format(_matchDate),
+                    style: TextStyle(fontSize: 12.sp),
+                  ),
                 ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: 12.w),
               Expanded(
-                child: TextField(
+                child: CustomTextField(
                   controller: _timeController,
-                  decoration: const InputDecoration(
-                    hintText: 'Time (e.g. 7-8 PM)',
-                    contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                  ),
+                  hintText: 'Time (e.g. 7-8 PM)',
+                  prefixIcon: Icons.access_time_outlined,
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 24),
+          SizedBox(height: 24.h),
 
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: theme.colorScheme.secondary,
-              padding: const EdgeInsets.symmetric(vertical: 14),
-            ),
+          CustomButton(
+            text: 'POST TO WAITING POOL',
             onPressed: () {
               if (_teamNameController.text.trim().isEmpty ||
                   _venueController.text.trim().isEmpty ||
@@ -132,10 +137,6 @@ class _HostChallengeSheetState extends State<HostChallengeSheet> {
                 _timeController.text.trim(),
               );
             },
-            child: const Text(
-              'POST TO WAITING POOL',
-              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-            ),
           ),
         ],
       ),

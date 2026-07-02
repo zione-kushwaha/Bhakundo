@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../constants/app_colors.dart';
 
 class CustomSnackbar {
   CustomSnackbar._();
@@ -15,10 +17,10 @@ class CustomSnackbar {
     IconData icon;
     
     if (isError) {
-      backgroundColor = const Color(0xFFDC2626);
+      backgroundColor = AppColors.error;
       icon = Icons.error_outline_rounded;
     } else if (isSuccess) {
-      backgroundColor = const Color(0xFF16A34A);
+      backgroundColor = AppColors.success;
       icon = Icons.check_circle_outline_rounded;
     } else {
       backgroundColor = theme.primaryColor;
@@ -30,14 +32,15 @@ class CustomSnackbar {
       SnackBar(
         content: Row(
           children: [
-            Icon(icon, color: Colors.white, size: 20),
-            const SizedBox(width: 12),
+            Icon(icon, color: Colors.white, size: 20.r),
+            SizedBox(width: 12.w),
             Expanded(
               child: Text(
                 message,
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: Colors.white,
                   fontWeight: FontWeight.w600,
+                  fontSize: 13.sp,
                 ),
               ),
             ),
@@ -46,9 +49,9 @@ class CustomSnackbar {
         backgroundColor: backgroundColor,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(8.r),
         ),
-        margin: const EdgeInsets.all(16),
+        margin: EdgeInsets.all(16.r),
         duration: const Duration(seconds: 3),
       ),
     );

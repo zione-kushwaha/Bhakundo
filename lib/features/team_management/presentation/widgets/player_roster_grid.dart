@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/widgets/custom_avatar.dart';
 import '../../domain/entities/player.dart';
 
 class PlayerRosterGrid extends StatelessWidget {
@@ -16,12 +19,15 @@ class PlayerRosterGrid extends StatelessWidget {
       children: [
         Text(
           title,
-          style: theme.textTheme.labelMedium?.copyWith(fontSize: 7),
+          style: theme.textTheme.labelMedium?.copyWith(fontSize: 7.sp),
         ),
-        const SizedBox(height: 2),
+        SizedBox(height: 2.h),
         Text(
           value,
-          style: theme.textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+          style: theme.textTheme.titleSmall?.copyWith(
+            fontWeight: FontWeight.bold,
+            fontSize: 12.sp,
+          ),
         ),
       ],
     );
@@ -37,25 +43,25 @@ class PlayerRosterGrid extends StatelessWidget {
       itemCount: roster.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: isTablet ? 3 : 2,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
+        crossAxisSpacing: 10.w,
+        mainAxisSpacing: 10.h,
         childAspectRatio: 0.8,
       ),
       itemBuilder: (context, index) {
         final player = roster[index];
         return Card(
           child: Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: EdgeInsets.all(12.r),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Avatar
-                CircleAvatar(
-                  radius: 28,
-                  backgroundImage: NetworkImage(player.avatarUrl),
-                  backgroundColor: theme.primaryColor.withValues(alpha: 0.1),
+                // Custom Avatar from Core
+                CustomAvatar(
+                  radius: 28.r,
+                  imageUrl: player.avatarUrl,
+                  backgroundColor: AppColors.primary.withValues(alpha: 0.1),
                 ),
-                const SizedBox(height: 8),
+                SizedBox(height: 8.h),
                 Text(
                   player.name,
                   textAlign: TextAlign.center,
@@ -63,27 +69,28 @@ class PlayerRosterGrid extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
+                    fontSize: 13.sp,
                   ),
                 ),
-                const SizedBox(height: 2),
+                SizedBox(height: 2.h),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
                   decoration: BoxDecoration(
-                    color: theme.primaryColor.withValues(alpha: 0.05),
-                    borderRadius: BorderRadius.circular(10),
+                    color: AppColors.primary.withValues(alpha: 0.05),
+                    borderRadius: BorderRadius.circular(10.r),
                   ),
                   child: Text(
                     player.role.toUpperCase(),
                     style: theme.textTheme.labelMedium?.copyWith(
-                      fontSize: 8,
-                      color: theme.primaryColor,
+                      fontSize: 8.sp,
+                      color: AppColors.primary,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-                const SizedBox(height: 12),
+                SizedBox(height: 12.h),
                 const Divider(),
-                const SizedBox(height: 8),
+                SizedBox(height: 8.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [

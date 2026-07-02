@@ -10,14 +10,11 @@ class TeamBloc extends Bloc<TeamEvent, TeamState> {
   final CreateTeamUseCase _createTeamUseCase;
   final AddPlayerToTeamUseCase _addPlayerToTeamUseCase;
 
-  TeamBloc({
-    required GetMyTeamUseCase getMyTeamUseCase,
-    required CreateTeamUseCase createTeamUseCase,
-    required AddPlayerToTeamUseCase addPlayerToTeamUseCase,
-  })  : _getMyTeamUseCase = getMyTeamUseCase,
-        _createTeamUseCase = createTeamUseCase,
-        _addPlayerToTeamUseCase = addPlayerToTeamUseCase,
-        super(TeamInitial()) {
+  TeamBloc(
+    this._getMyTeamUseCase,
+    this._createTeamUseCase,
+    this._addPlayerToTeamUseCase,
+  ) : super(TeamInitial()) {
     on<LoadMyTeam>(_onLoadMyTeam);
     on<CreateNewTeam>(_onCreateNewTeam);
     on<AddPlayer>(_onAddPlayer);

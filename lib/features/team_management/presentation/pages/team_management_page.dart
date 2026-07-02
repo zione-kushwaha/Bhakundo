@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/widgets/custom_text_field.dart';
 import '../bloc/team_bloc.dart';
 import '../bloc/team_event.dart';
 import '../bloc/team_state.dart';
@@ -46,27 +49,28 @@ class _TeamManagementPageState extends State<TeamManagementPage> {
     showDialog(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: const Text('Add Player to Roster'),
+        title: Text(
+          'Add Player to Roster',
+          style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+        ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            TextField(
+            CustomTextField(
               controller: _playerNameController,
-              decoration: const InputDecoration(
-                hintText: 'Player Name',
-                prefixIcon: Icon(Icons.person_outline),
-              ),
+              hintText: 'Player Name',
+              prefixIcon: Icons.person_outline,
             ),
-            const SizedBox(height: 12),
+            SizedBox(height: 12.h),
             DropdownButtonFormField<String>(
-              value: _selectedRole,
-              decoration: const InputDecoration(
-                contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+              initialValue: _selectedRole,
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
               ),
               items: ['Forward', 'Midfielder', 'Defender', 'Goalkeeper'].map((role) {
                 return DropdownMenuItem(
                   value: role,
-                  child: Text(role),
+                  child: Text(role, style: TextStyle(fontSize: 13.sp)),
                 );
               }).toList(),
               onChanged: (val) {
@@ -77,29 +81,30 @@ class _TeamManagementPageState extends State<TeamManagementPage> {
                 }
               },
             ),
-            const SizedBox(height: 12),
-            TextField(
+            SizedBox(height: 12.h),
+            CustomTextField(
               controller: _playerGoalsController,
               keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                hintText: 'Goals Scored',
-                prefixIcon: Icon(Icons.sports_soccer),
-              ),
+              hintText: 'Goals Scored',
+              prefixIcon: Icons.sports_soccer,
             ),
           ],
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(),
-            child: const Text('CANCEL'),
+            child: Text(
+              'CANCEL',
+              style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
+            ),
           ),
           ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: AppColors.secondary),
             onPressed: () {
               if (_playerNameController.text.trim().isEmpty) return;
               final goals = int.tryParse(_playerGoalsController.text.trim()) ?? 0;
               
               final randomId = DateTime.now().millisecondsSinceEpoch.toString();
-              // Unsplash user dummy photo index based on timestamp
               final avatarIndex = (DateTime.now().second % 4) + 1;
               final avatar = 'https://images.unsplash.com/photo-${1500000000000 + avatarIndex * 100000}?q=80&w=100';
 
@@ -118,7 +123,10 @@ class _TeamManagementPageState extends State<TeamManagementPage> {
               _playerGoalsController.clear();
               Navigator.of(dialogContext).pop();
             },
-            child: const Text('ADD PLAYER'),
+            child: Text(
+              'ADD PLAYER',
+              style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: Colors.white),
+            ),
           ),
         ],
       ),
@@ -148,19 +156,16 @@ class _TeamManagementPageState extends State<TeamManagementPage> {
           } else if (state is TeamLoaded) {
             final team = state.team;
             return SingleChildScrollView(
-              padding: const EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(16.r),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  // Team Header Card
                   TeamHeaderCard(team: team),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16.h),
 
-                  // Stats Dashboard Grid
                   TeamStatsGrid(team: team),
-                  const SizedBox(height: 24),
+                  SizedBox(height: 24.h),
 
-                  // Roster Section Header
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -169,28 +174,39 @@ class _TeamManagementPageState extends State<TeamManagementPage> {
                         style: theme.textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.bold,
                           letterSpacing: 0.5,
+                          fontSize: 14.sp,
                         ),
                       ),
                       TextButton.icon(
-                        icon: const Icon(Icons.person_add, size: 16),
-                        label: const Text('ADD PLAYER', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+                        icon: Icon(Icons.person_add, size: 16.r),
+                        label: Text(
+                          'ADD PLAYER',
+                          style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
+                        ),
                         onPressed: () => _showAddPlayerDialog(team.id, theme),
                       )
                     ],
                   ),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 12.h),
 
-                  // Roster Grid
                   PlayerRosterGrid(roster: team.roster, isTablet: isTablet),
                 ],
               ),
             );
           } else if (state is TeamFailure) {
             return Center(
-              child: Text('Error loading team: ${state.message}'),
+              child: Text(
+                'Error loading team: ${state.message}',
+                style: TextStyle(fontSize: 12.sp),
+              ),
             );
           }
-          return const Center(child: Text('No team loaded'));
+          return Center(
+            child: Text(
+              'No team loaded',
+              style: TextStyle(fontSize: 12.sp),
+            ),
+          );
         },
       ),
     );

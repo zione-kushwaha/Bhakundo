@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/widgets/custom_snackbar.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/widgets/custom_button.dart';
+import '../../../../core/widgets/custom_text_field.dart';
 import '../bloc/auth_bloc.dart';
 import '../bloc/auth_event.dart';
 import '../bloc/auth_state.dart';
@@ -60,7 +64,7 @@ class _SignUpPageState extends State<SignUpPage> {
             // Background
             Container(
               decoration: const BoxDecoration(
-                color: Color(0xFF070B14),
+                color: AppColors.backgroundDark,
                 image: DecorationImage(
                   image: NetworkImage(
                     'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1200',
@@ -75,8 +79,8 @@ class _SignUpPageState extends State<SignUpPage> {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    const Color(0xFF070B14).withValues(alpha: 0.85),
-                    const Color(0xFF0B1220).withValues(alpha: 0.95),
+                    AppColors.backgroundDark.withValues(alpha: 0.85),
+                    AppColors.backgroundDark.withValues(alpha: 0.95),
                   ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -86,17 +90,17 @@ class _SignUpPageState extends State<SignUpPage> {
             // Centered responsive box
             Center(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.all(24),
+                padding: EdgeInsets.all(24.r),
                 child: Center(
                   child: Container(
                     constraints: BoxConstraints(
-                      maxWidth: isTablet ? 460 : double.infinity,
+                      maxWidth: isTablet ? 460.w : double.infinity,
                     ),
-                    padding: isTablet ? const EdgeInsets.all(32) : EdgeInsets.zero,
+                    padding: isTablet ? EdgeInsets.all(32.r) : EdgeInsets.zero,
                     decoration: isTablet
                         ? BoxDecoration(
                             color: theme.cardColor.withValues(alpha: 0.95),
-                            borderRadius: BorderRadius.circular(16),
+                            borderRadius: BorderRadius.circular(16.r),
                             border: Border.all(
                               color: theme.dividerTheme.color ?? Colors.grey.withValues(alpha: 0.2),
                             ),
@@ -111,24 +115,24 @@ class _SignUpPageState extends State<SignUpPage> {
                           // App Logo
                           Center(
                             child: Container(
-                              height: 80,
-                              width: 80,
+                              height: 80.h,
+                              width: 80.w,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: theme.primaryColor.withValues(alpha: 0.1),
                               ),
-                              padding: const EdgeInsets.all(10),
+                              padding: EdgeInsets.all(10.r),
                               child: Image.asset(
                                 'assets/app/logo.png',
                                 errorBuilder: (context, error, stackTrace) => Icon(
                                   Icons.sports_soccer,
                                   color: theme.primaryColor,
-                                  size: 40,
+                                  size: 40.r,
                                 ),
                               ),
                             ),
                           ),
-                          const SizedBox(height: 16),
+                          SizedBox(height: 16.h),
                           Text(
                             'BHAKUNDO',
                             textAlign: TextAlign.center,
@@ -136,51 +140,48 @@ class _SignUpPageState extends State<SignUpPage> {
                               color: Colors.white,
                               letterSpacing: 2.0,
                               fontWeight: FontWeight.w900,
+                              fontSize: 20.sp,
                             ),
                           ),
-                          const SizedBox(height: 4),
+                          SizedBox(height: 4.h),
                           Text(
                             'Create captain profile to host games',
                             textAlign: TextAlign.center,
                             style: theme.textTheme.bodyMedium?.copyWith(
                               color: Colors.white70,
                               fontWeight: FontWeight.w300,
+                              fontSize: 12.sp,
                             ),
                           ),
-                          const SizedBox(height: 32),
+                          SizedBox(height: 32.h),
 
                           Text(
                             'CREATE ACCOUNT',
                             style: theme.textTheme.titleMedium?.copyWith(
-                              color: theme.colorScheme.secondary,
+                              color: AppColors.secondary,
                               fontWeight: FontWeight.w700,
+                              fontSize: 14.sp,
                             ),
                           ),
-                          const SizedBox(height: 16),
+                          SizedBox(height: 16.h),
 
-                          TextFormField(
+                          CustomTextField(
                             controller: _nameController,
-                            style: const TextStyle(color: Colors.white),
-                            decoration: const InputDecoration(
-                              hintText: 'Captain Full Name',
-                              prefixIcon: Icon(Icons.person_outline, color: Colors.white54),
-                            ),
+                            hintText: 'Captain Full Name',
+                            prefixIcon: Icons.person_outline,
                             validator: (val) {
                               if (val == null || val.trim().isEmpty) {
-                                return 'Full name is required';
+                                  return 'Full name is required';
                               }
                               return null;
                             },
                           ),
-                          const SizedBox(height: 16),
-                          TextFormField(
+                          SizedBox(height: 16.h),
+                          CustomTextField(
                             controller: _emailController,
-                            style: const TextStyle(color: Colors.white),
+                            hintText: 'Email Address',
+                            prefixIcon: Icons.email_outlined,
                             keyboardType: TextInputType.emailAddress,
-                            decoration: const InputDecoration(
-                              hintText: 'Email Address',
-                              prefixIcon: Icon(Icons.email_outlined, color: Colors.white54),
-                            ),
                             validator: (val) {
                               if (val == null || val.trim().isEmpty) {
                                 return 'Email is required';
@@ -191,21 +192,19 @@ class _SignUpPageState extends State<SignUpPage> {
                               return null;
                             },
                           ),
-                          const SizedBox(height: 16),
-                          TextFormField(
+                          SizedBox(height: 16.h),
+                          CustomTextField(
                             controller: _passwordController,
+                            hintText: 'Password',
+                            prefixIcon: Icons.lock_outline,
                             obscureText: _obscurePassword,
-                            style: const TextStyle(color: Colors.white),
-                            decoration: InputDecoration(
-                              hintText: 'Password',
-                              prefixIcon: const Icon(Icons.lock_outline, color: Colors.white54),
-                              suffixIcon: IconButton(
-                                icon: Icon(
-                                  _obscurePassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
-                                  color: Colors.white54,
-                                ),
-                                onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _obscurePassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                                color: Colors.white54,
+                                size: 20.r,
                               ),
+                              onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
                             ),
                             validator: (val) {
                               if (val == null || val.isEmpty) {
@@ -217,48 +216,37 @@ class _SignUpPageState extends State<SignUpPage> {
                               return null;
                             },
                           ),
-                          const SizedBox(height: 24),
+                          SizedBox(height: 24.h),
 
                           // Submit Button
                           BlocBuilder<AuthBloc, AuthState>(
                             builder: (context, state) {
-                              if (state is AuthLoading) {
-                                return const Center(
-                                  child: Padding(
-                                    padding: EdgeInsets.all(12.0),
-                                    child: CircularProgressIndicator(),
-                                  ),
-                                );
-                              }
-                              return ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: theme.colorScheme.secondary,
-                                  padding: const EdgeInsets.symmetric(vertical: 14),
-                                ),
+                              return CustomButton(
+                                text: 'REGISTER ACCOUNT',
+                                isLoading: state is AuthLoading,
                                 onPressed: _submit,
-                                child: const Text(
-                                  'REGISTER ACCOUNT',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: 1.0,
-                                  ),
-                                ),
                               );
                             },
                           ),
-                          const SizedBox(height: 16),
+                          SizedBox(height: 16.h),
 
                           // Sign in option
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text('Already have a captain profile?', style: TextStyle(color: Colors.white54, fontSize: 13)),
+                              Text(
+                                'Already have a captain profile?',
+                                style: TextStyle(color: Colors.white54, fontSize: 13.sp),
+                              ),
                               TextButton(
                                 onPressed: () => context.pop(),
                                 child: Text(
                                   'Sign In',
-                                  style: TextStyle(color: theme.colorScheme.secondary, fontWeight: FontWeight.bold, fontSize: 13),
+                                  style: TextStyle(
+                                    color: AppColors.secondary,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 13.sp,
+                                  ),
                                 ),
                               ),
                             ],

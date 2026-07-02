@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/widgets/custom_text_field.dart';
 import '../bloc/matchmaking_bloc.dart';
 import '../bloc/matchmaking_event.dart';
 import '../bloc/matchmaking_state.dart';
@@ -30,8 +33,8 @@ class _MatchmakingPageState extends State<MatchmakingPage> {
       context: context,
       isScrollControlled: true,
       backgroundColor: theme.scaffoldBackgroundColor,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
       ),
       builder: (bottomSheetContext) {
         return HostChallengeSheet(
@@ -70,31 +73,38 @@ class _MatchmakingPageState extends State<MatchmakingPage> {
     showDialog(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: Text('Accept ${challenge.hostTeamName}\'s Challenge'),
+        title: Text(
+          'Accept ${challenge.hostTeamName}\'s Challenge',
+          style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+        ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
               'Enter your team name to confirm the match booking split:',
-              style: theme.textTheme.bodyMedium,
+              style: theme.textTheme.bodyMedium?.copyWith(fontSize: 12.sp),
             ),
-            const SizedBox(height: 16),
-            TextField(
+            SizedBox(height: 16.h),
+            CustomTextField(
               controller: controller,
-              decoration: const InputDecoration(
-                hintText: 'Opponent Team Name',
-                prefixIcon: Icon(Icons.shield_outlined),
-              ),
+              hintText: 'Opponent Team Name',
+              prefixIcon: Icons.shield_outlined,
             ),
           ],
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(),
-            child: const Text('CANCEL'),
+            child: Text(
+              'CANCEL',
+              style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
+            ),
           ),
           ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.secondary,
+            ),
             onPressed: () {
               if (controller.text.trim().isEmpty) return;
               context.read<MatchmakingBloc>().add(
@@ -107,7 +117,10 @@ class _MatchmakingPageState extends State<MatchmakingPage> {
               Navigator.of(dialogContext).pop();
               CustomSnackbar.show(context, 'Match accepted and locked!', isSuccess: true);
             },
-            child: const Text('CONFIRM MATCH'),
+            child: Text(
+              'CONFIRM MATCH',
+              style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: Colors.white),
+            ),
           ),
         ],
       ),
@@ -141,11 +154,17 @@ class _MatchmakingPageState extends State<MatchmakingPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.people_outline, size: 64, color: theme.primaryColor.withValues(alpha: 0.5)),
-                    const SizedBox(height: 16),
-                    Text('Waiting Pool is empty.', style: theme.textTheme.titleMedium),
-                    const SizedBox(height: 8),
-                    Text('Host a challenge to invite local teams!', style: theme.textTheme.bodySmall),
+                    Icon(Icons.people_outline, size: 64.r, color: AppColors.primary.withValues(alpha: 0.5)),
+                    SizedBox(height: 16.h),
+                    Text(
+                      'Waiting Pool is empty.',
+                      style: theme.textTheme.titleMedium?.copyWith(fontSize: 14.sp),
+                    ),
+                    SizedBox(height: 8.h),
+                    Text(
+                      'Host a challenge to invite local teams!',
+                      style: theme.textTheme.bodySmall?.copyWith(fontSize: 11.sp),
+                    ),
                   ],
                 ),
               );
@@ -155,16 +174,16 @@ class _MatchmakingPageState extends State<MatchmakingPage> {
               children: [
                 // Quick info bar
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  color: theme.primaryColor.withValues(alpha: 0.05),
+                  padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+                  color: AppColors.primary.withValues(alpha: 0.05),
                   child: Row(
                     children: [
-                      Icon(Icons.info_outline, size: 16, color: theme.primaryColor),
-                      const SizedBox(width: 8),
+                      Icon(Icons.info_outline, size: 16.r, color: AppColors.primary),
+                      SizedBox(width: 8.w),
                       Expanded(
                         child: Text(
                           'Waiting pool shows teams looking for opponents. You can accept a challenge to organize a match instantly.',
-                          style: theme.textTheme.bodySmall?.copyWith(fontSize: 10),
+                          style: theme.textTheme.bodySmall?.copyWith(fontSize: 10.sp),
                         ),
                       ),
                     ],
@@ -177,25 +196,31 @@ class _MatchmakingPageState extends State<MatchmakingPage> {
             );
           } else if (state is MatchmakingFailure) {
             return Center(
-              child: Text('Error: ${state.message}'),
+              child: Text(
+                'Error: ${state.message}',
+                style: TextStyle(fontSize: 12.sp),
+              ),
             );
           }
           return const SizedBox.shrink();
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: theme.primaryColor,
+        backgroundColor: AppColors.primary,
         foregroundColor: Colors.white,
         onPressed: () => _showHostChallengeDialog(theme),
-        icon: const Icon(Icons.add),
-        label: const Text('HOST CHALLENGE', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+        icon: Icon(Icons.add, size: 20.r),
+        label: Text(
+          'HOST CHALLENGE',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp),
+        ),
       ),
     );
   }
 
   Widget _buildChallengesList(List<Challenge> challenges, bool isTablet, ThemeData theme) {
     return ListView.builder(
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(16.r),
       itemCount: challenges.length,
       itemBuilder: (context, index) {
         final challenge = challenges[index];

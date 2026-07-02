@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../core/constants/app_colors.dart';
 
 class DashboardPage extends StatelessWidget {
   final Widget child;
@@ -43,9 +45,9 @@ class DashboardPage extends StatelessWidget {
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.04),
-              blurRadius: 8,
-              offset: const Offset(0, -2),
+              color: Colors.black.withValues(alpha: 0.04),
+              blurRadius: 8.r,
+              offset: Offset(0, -2.h),
             )
           ],
         ),
@@ -54,17 +56,17 @@ class DashboardPage extends StatelessWidget {
           onTap: (index) => _onItemTapped(index, context),
           type: BottomNavigationBarType.fixed,
           backgroundColor: theme.cardColor,
-          selectedItemColor: theme.primaryColor,
+          selectedItemColor: AppColors.primary,
           unselectedItemColor: theme.brightness == Brightness.light ? Colors.grey.shade400 : Colors.grey.shade600,
           selectedLabelStyle: theme.textTheme.labelMedium?.copyWith(
             fontWeight: FontWeight.bold,
-            fontSize: 10,
+            fontSize: 10.sp,
           ),
           unselectedLabelStyle: theme.textTheme.labelMedium?.copyWith(
             fontWeight: FontWeight.w500,
-            fontSize: 9,
+            fontSize: 9.sp,
           ),
-          iconSize: 22,
+          iconSize: 22.r,
           elevation: 0,
           items: const [
             BottomNavigationBarItem(

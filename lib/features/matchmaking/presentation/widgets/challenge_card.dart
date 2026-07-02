@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/widgets/custom_button.dart';
 import '../../domain/entities/challenge.dart';
 
 class ChallengeCard extends StatelessWidget {
@@ -18,9 +21,9 @@ class ChallengeCard extends StatelessWidget {
     final isMatched = challenge.status == 'Matched';
 
     return Card(
-      margin: const EdgeInsets.only(bottom: 12),
+      margin: EdgeInsets.only(bottom: 12.h),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.r),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -30,8 +33,8 @@ class ChallengeCard extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    const Icon(Icons.shield, color: Colors.blueGrey, size: 24),
-                    const SizedBox(width: 8),
+                    Icon(Icons.shield, color: Colors.blueGrey, size: 24.r),
+                    SizedBox(width: 8.w),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -39,29 +42,30 @@ class ChallengeCard extends StatelessWidget {
                           challenge.hostTeamName,
                           style: theme.textTheme.titleMedium?.copyWith(
                             fontWeight: FontWeight.bold,
+                            fontSize: 14.sp,
                           ),
                         ),
                         Text(
                           'Captain: ${challenge.hostCaptainName}',
-                          style: theme.textTheme.bodySmall,
+                          style: theme.textTheme.bodySmall?.copyWith(fontSize: 11.sp),
                         ),
                       ],
                     ),
                   ],
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                   decoration: BoxDecoration(
                     color: isMatched
-                        ? Colors.green.withValues(alpha: 0.1)
-                        : theme.colorScheme.secondary.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(4),
+                        ? AppColors.success.withValues(alpha: 0.1)
+                        : AppColors.secondary.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(4.r),
                   ),
                   child: Text(
                     isMatched ? 'MATCHED' : 'WAITING',
                     style: theme.textTheme.labelMedium?.copyWith(
-                      fontSize: 9,
-                      color: isMatched ? Colors.green : theme.colorScheme.secondary,
+                      fontSize: 9.sp,
+                      color: isMatched ? AppColors.success : AppColors.secondary,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -69,9 +73,9 @@ class ChallengeCard extends StatelessWidget {
               ],
             ),
             
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
             const Divider(),
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
 
             // Match details
             Row(
@@ -79,12 +83,15 @@ class ChallengeCard extends StatelessWidget {
                 Expanded(
                   child: Row(
                     children: [
-                      Icon(Icons.location_on, size: 16, color: theme.primaryColor),
-                      const SizedBox(width: 6),
+                      Icon(Icons.location_on, size: 16.r, color: AppColors.primary),
+                      SizedBox(width: 6.w),
                       Expanded(
                         child: Text(
                           challenge.venueName,
-                          style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12.sp,
+                          ),
                         ),
                       ),
                     ],
@@ -93,12 +100,15 @@ class ChallengeCard extends StatelessWidget {
                 Expanded(
                   child: Row(
                     children: [
-                      Icon(Icons.access_time, size: 16, color: theme.primaryColor),
-                      const SizedBox(width: 6),
+                      Icon(Icons.access_time, size: 16.r, color: AppColors.primary),
+                      SizedBox(width: 6.w),
                       Expanded(
                         child: Text(
                           '${DateFormat('d MMM').format(DateTime.parse(challenge.matchDate))} | ${challenge.matchTime}',
-                          style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12.sp,
+                          ),
                         ),
                       ),
                     ],
@@ -107,51 +117,41 @@ class ChallengeCard extends StatelessWidget {
               ],
             ),
 
-            const SizedBox(height: 16),
+            SizedBox(height: 16.h),
 
             // Match status vs Opponent Card or accept Button
             if (isMatched)
               Container(
-                padding: const EdgeInsets.all(12),
+                padding: EdgeInsets.all(12.r),
                 decoration: BoxDecoration(
-                  color: Colors.green.withValues(alpha: 0.05),
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: Colors.green.withValues(alpha: 0.2)),
+                  color: AppColors.success.withValues(alpha: 0.05),
+                  borderRadius: BorderRadius.circular(8.r),
+                  border: Border.all(color: AppColors.success.withValues(alpha: 0.2)),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(Icons.check_circle_outline, color: Colors.green, size: 18),
-                    const SizedBox(width: 8),
+                    Icon(Icons.check_circle_outline, color: AppColors.success, size: 18.r),
+                    SizedBox(width: 8.w),
                     Text(
                       'Matched against: ',
-                      style: theme.textTheme.bodyMedium,
+                      style: theme.textTheme.bodyMedium?.copyWith(fontSize: 12.sp),
                     ),
                     Text(
                       challenge.opponentTeamName,
                       style: theme.textTheme.bodyMedium?.copyWith(
                         fontWeight: FontWeight.bold,
-                        color: Colors.green,
+                        color: AppColors.success,
+                        fontSize: 12.sp,
                       ),
                     ),
                   ],
                 ),
               )
             else
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: theme.colorScheme.secondary,
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                ),
+              CustomButton(
+                text: 'ACCEPT CHALLENGE',
                 onPressed: onAccept,
-                child: const Text(
-                  'ACCEPT CHALLENGE',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12,
-                    color: Colors.white,
-                  ),
-                ),
               ),
           ],
         ),

@@ -24,16 +24,12 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
   BookingSlot? _selectedSlot;
   List<BookingSlot> _currentSlots = [];
 
-  BookingBloc({
-    required GetCourtsUseCase getCourtsUseCase,
-    required GetSlotsUseCase getSlotsUseCase,
-    required CreateBookingUseCase createBookingUseCase,
-    required VerifyBookingPaymentUseCase verifyBookingPaymentUseCase,
-  })  : _getCourtsUseCase = getCourtsUseCase,
-        _getSlotsUseCase = getSlotsUseCase,
-        _createBookingUseCase = createBookingUseCase,
-        _verifyBookingPaymentUseCase = verifyBookingPaymentUseCase,
-        super(BookingInitial()) {
+  BookingBloc(
+    this._getCourtsUseCase,
+    this._getSlotsUseCase,
+    this._createBookingUseCase,
+    this._verifyBookingPaymentUseCase,
+  ) : super(BookingInitial()) {
     on<LoadCourts>(_onLoadCourts);
     on<LoadSlots>(_onLoadSlots);
     on<SelectSlot>(_onSelectSlot);

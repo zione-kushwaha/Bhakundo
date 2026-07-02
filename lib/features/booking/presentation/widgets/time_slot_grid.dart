@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../core/constants/app_colors.dart';
 import '../../domain/entities/booking_slot.dart';
 
 class TimeSlotGrid extends StatelessWidget {
@@ -21,10 +23,10 @@ class TimeSlotGrid extends StatelessWidget {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount: slots.length,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
-        crossAxisSpacing: 8,
-        mainAxisSpacing: 8,
+        crossAxisSpacing: 8.w,
+        mainAxisSpacing: 8.h,
         childAspectRatio: 2.2,
       ),
       itemBuilder: (context, index) {
@@ -37,26 +39,26 @@ class TimeSlotGrid extends StatelessWidget {
         Color textCol;
 
         if (isSelected) {
-          tileColor = theme.primaryColor;
-          borderCol = theme.primaryColor;
+          tileColor = AppColors.primary;
+          borderCol = AppColors.primary;
           textCol = Colors.white;
         } else if (!isAvailable) {
           tileColor = Colors.grey.withValues(alpha: 0.1);
           borderCol = Colors.grey.withValues(alpha: 0.2);
           textCol = Colors.grey.withValues(alpha: 0.6);
         } else {
-          tileColor = theme.primaryColor.withValues(alpha: 0.03);
-          borderCol = theme.primaryColor.withValues(alpha: 0.1);
-          textCol = theme.primaryColor;
+          tileColor = AppColors.primary.withValues(alpha: 0.03);
+          borderCol = AppColors.primary.withValues(alpha: 0.1);
+          textCol = AppColors.primary;
         }
 
         return InkWell(
           onTap: isAvailable ? () => onSlotSelected(slot) : null,
-          borderRadius: BorderRadius.circular(6),
+          borderRadius: BorderRadius.circular(6.r),
           child: Container(
             decoration: BoxDecoration(
               color: tileColor,
-              borderRadius: BorderRadius.circular(6),
+              borderRadius: BorderRadius.circular(6.r),
               border: Border.all(color: borderCol),
             ),
             child: Column(
@@ -65,17 +67,17 @@ class TimeSlotGrid extends StatelessWidget {
                 Text(
                   slot.startTime,
                   style: theme.textTheme.titleSmall?.copyWith(
-                    fontSize: 12,
+                    fontSize: 12.sp,
                     fontWeight: FontWeight.bold,
                     color: textCol,
                   ),
                 ),
-                const SizedBox(height: 2),
+                SizedBox(height: 2.h),
                 Text(
                   isAvailable ? 'NPR ${slot.price.toInt()}' : 'BOOKED',
                   style: theme.textTheme.labelMedium?.copyWith(
-                    fontSize: 8,
-                    color: isSelected ? Colors.white70 : (isAvailable ? theme.colorScheme.secondary : Colors.grey),
+                    fontSize: 8.sp,
+                    color: isSelected ? Colors.white70 : (isAvailable ? AppColors.secondary : Colors.grey),
                     fontWeight: FontWeight.bold,
                   ),
                 ),

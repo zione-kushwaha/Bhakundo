@@ -1,47 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../constants/app_colors.dart';
 
 class AppTheme {
   AppTheme._();
 
-  // Primary Sporty Blue
-  static const Color primaryLight = Color(0xFF0F2C59);
-  static const Color primaryDark = Color(0xFF1D4ED8); // Vibrant Royal/Sporty Blue for Dark Mode
-
-  // Secondary Energetic Orange
-  static const Color accentColor = Color(0xFFFF6B00);
-
-  // Light Mode Colors
-  static const Color bgLight = Color(0xFFF8FAFC);
-  static const Color surfaceLight = Colors.white;
-  static const Color textPrimaryLight = Color(0xFF0F172A);
-  static const Color textSecondaryLight = Color(0xFF475569);
-
-  // Dark Mode Colors
-  static const Color bgDark = Color(0xFF0B0F19);
-  static const Color surfaceDark = Color(0xFF1E293B);
-  static const Color textPrimaryDark = Color(0xFFF8FAFC);
-  static const Color textSecondaryDark = Color(0xFF94A3B8);
-
   static ThemeData get lightTheme {
     return _buildTheme(
       brightness: Brightness.light,
-      primaryColor: primaryLight,
-      backgroundColor: bgLight,
-      surfaceColor: surfaceLight,
-      textPrimary: textPrimaryLight,
-      textSecondary: textSecondaryLight,
+      primaryColor: AppColors.primary,
+      backgroundColor: AppColors.backgroundLight,
+      surfaceColor: AppColors.cardLight,
+      textPrimary: AppColors.textPrimaryLight,
+      textSecondary: AppColors.textSecondary,
     );
   }
 
   static ThemeData get darkTheme {
     return _buildTheme(
       brightness: Brightness.dark,
-      primaryColor: primaryDark,
-      backgroundColor: bgDark,
-      surfaceColor: surfaceDark,
-      textPrimary: textPrimaryDark,
-      textSecondary: textSecondaryDark,
+      primaryColor: AppColors.primary,
+      backgroundColor: AppColors.backgroundDark,
+      surfaceColor: AppColors.cardDark,
+      textPrimary: AppColors.textPrimaryDark,
+      textSecondary: AppColors.textSecondary,
     );
   }
 
@@ -57,7 +39,7 @@ class AppTheme {
         ? GoogleFonts.interTextTheme()
         : GoogleFonts.interTextTheme(ThemeData.dark().textTheme);
 
-    // Apply strict text scale: small, precise, highly professional typography.
+    // Apply strict typography scale.
     final customTextTheme = baseTextTheme.copyWith(
       displayLarge: baseTextTheme.displayLarge?.copyWith(
         fontSize: 32,
@@ -145,12 +127,10 @@ class AppTheme {
         seedColor: primaryColor,
         brightness: brightness,
         primary: primaryColor,
-        secondary: accentColor,
-        background: backgroundColor,
+        secondary: AppColors.secondary,
         surface: surfaceColor,
         onPrimary: Colors.white,
         onSecondary: Colors.white,
-        onBackground: textPrimary,
         onSurface: textPrimary,
       ),
       scaffoldBackgroundColor: backgroundColor,
@@ -169,7 +149,7 @@ class AppTheme {
         iconTheme: IconThemeData(color: textPrimary, size: 20),
       ),
       buttonTheme: const ButtonThemeData(
-        buttonColor: accentColor,
+        buttonColor: AppColors.secondary,
         textTheme: ButtonTextTheme.primary,
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
@@ -191,7 +171,7 @@ class AppTheme {
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           foregroundColor: primaryColor,
-          side: BorderSide(color: primaryColor.withOpacity(0.5)),
+          side: BorderSide(color: primaryColor.withValues(alpha: 0.5)),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
@@ -204,7 +184,7 @@ class AppTheme {
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: brightness == Brightness.light ? Color(0xFFF1F5F9) : Color(0xFF0F172A),
+        fillColor: brightness == Brightness.light ? const Color(0xFFF1F5F9) : const Color(0xFF0F172A),
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
@@ -219,7 +199,7 @@ class AppTheme {
           borderSide: BorderSide(color: primaryColor, width: 1.5),
         ),
         labelStyle: customTextTheme.bodyMedium,
-        hintStyle: customTextTheme.bodyMedium?.copyWith(color: textSecondary.withOpacity(0.7)),
+        hintStyle: customTextTheme.bodyMedium?.copyWith(color: textSecondary.withValues(alpha: 0.7)),
       ),
       cardTheme: CardThemeData(
         color: surfaceColor,
@@ -227,13 +207,13 @@ class AppTheme {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
           side: BorderSide(
-            color: brightness == Brightness.light ? Color(0xFFE2E8F0) : Color(0xFF334155),
+            color: brightness == Brightness.light ? const Color(0xFFE2E8F0) : const Color(0xFF334155),
             width: 1,
           ),
         ),
       ),
       dividerTheme: DividerThemeData(
-        color: brightness == Brightness.light ? Color(0xFFE2E8F0) : Color(0xFF334155),
+        color: brightness == Brightness.light ? const Color(0xFFE2E8F0) : const Color(0xFF334155),
         thickness: 1,
         space: 1,
       ),

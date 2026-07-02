@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'firebase_options.dart';
 import 'core/routes/app_router.dart';
@@ -103,43 +104,50 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<AuthBloc>(
           create: (context) => AuthBloc(
-            getCurrentUserUseCase: getCurrentUserUseCase,
-            signInWithEmailUseCase: signInWithEmailUseCase,
-            signUpWithEmailUseCase: signUpWithEmailUseCase,
-            signInWithGoogleUseCase: signInWithGoogleUseCase,
-            signOutUseCase: signOutUseCase,
+            getCurrentUserUseCase,
+            signInWithEmailUseCase,
+            signUpWithEmailUseCase,
+            signInWithGoogleUseCase,
+            signOutUseCase,
           )..add(AuthCheckRequested()),
         ),
         BlocProvider<BookingBloc>(
           create: (context) => BookingBloc(
-            getCourtsUseCase: getCourtsUseCase,
-            getSlotsUseCase: getSlotsUseCase,
-            createBookingUseCase: createBookingUseCase,
-            verifyBookingPaymentUseCase: verifyBookingPaymentUseCase,
+            getCourtsUseCase,
+            getSlotsUseCase,
+            createBookingUseCase,
+            verifyBookingPaymentUseCase,
           ),
         ),
         BlocProvider<MatchmakingBloc>(
           create: (context) => MatchmakingBloc(
-            getOpenChallengesUseCase: getOpenChallengesUseCase,
-            hostChallengeUseCase: hostChallengeUseCase,
-            acceptChallengeUseCase: acceptChallengeUseCase,
+            getOpenChallengesUseCase,
+            hostChallengeUseCase,
+            acceptChallengeUseCase,
           ),
         ),
         BlocProvider<TeamBloc>(
           create: (context) => TeamBloc(
-            getMyTeamUseCase: getMyTeamUseCase,
-            createTeamUseCase: createTeamUseCase,
-            addPlayerToTeamUseCase: addPlayerToTeamUseCase,
+            getMyTeamUseCase,
+            createTeamUseCase,
+            addPlayerToTeamUseCase,
           ),
         ),
       ],
-      child: MaterialApp.router(
-        title: 'Bhakundo',
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.lightTheme,
-        darkTheme: AppTheme.darkTheme,
-        themeMode: ThemeMode.system,
-        routerConfig: AppRouter.router,
+      child: ScreenUtilInit(
+        designSize: const Size(375, 812),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (context, child) {
+          return MaterialApp.router(
+            title: 'Bhakundo',
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
+            themeMode: ThemeMode.system,
+            routerConfig: AppRouter.router,
+          );
+        },
       ),
     );
   }

@@ -15,18 +15,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final SignInWithGoogleUseCase _signInWithGoogleUseCase;
   final SignOutUseCase _signOutUseCase;
 
-  AuthBloc({
-    required GetCurrentUserUseCase getCurrentUserUseCase,
-    required SignInWithEmailUseCase signInWithEmailUseCase,
-    required SignUpWithEmailUseCase signUpWithEmailUseCase,
-    required SignInWithGoogleUseCase signInWithGoogleUseCase,
-    required SignOutUseCase signOutUseCase,
-  })  : _getCurrentUserUseCase = getCurrentUserUseCase,
-        _signInWithEmailUseCase = signInWithEmailUseCase,
-        _signUpWithEmailUseCase = signUpWithEmailUseCase,
-        _signInWithGoogleUseCase = signInWithGoogleUseCase,
-        _signOutUseCase = signOutUseCase,
-        super(AuthInitial()) {
+  AuthBloc(
+    this._getCurrentUserUseCase,
+    this._signInWithEmailUseCase,
+    this._signUpWithEmailUseCase,
+    this._signInWithGoogleUseCase,
+    this._signOutUseCase,
+  ) : super(AuthInitial()) {
     on<AuthCheckRequested>(_onAuthCheckRequested);
     on<AuthEmailSignInRequested>(_onAuthEmailSignInRequested);
     on<AuthEmailSignUpRequested>(_onAuthEmailSignUpRequested);

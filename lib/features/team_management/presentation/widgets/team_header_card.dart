@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../core/constants/app_colors.dart';
 import '../../domain/entities/team.dart';
 
 class TeamHeaderCard extends StatelessWidget {
@@ -15,14 +17,14 @@ class TeamHeaderCard extends StatelessWidget {
     
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.r),
         child: Row(
           children: [
             Container(
-              height: 64,
-              width: 64,
+              height: 64.h,
+              width: 64.w,
               decoration: BoxDecoration(
-                color: theme.primaryColor.withValues(alpha: 0.05),
+                color: AppColors.primary.withValues(alpha: 0.05),
                 shape: BoxShape.circle,
                 image: const DecorationImage(
                   image: NetworkImage(
@@ -32,7 +34,7 @@ class TeamHeaderCard extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(width: 16),
+            SizedBox(width: 16.w),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,15 +42,15 @@ class TeamHeaderCard extends StatelessWidget {
                   Text(
                     team.name.toUpperCase(),
                     style: theme.textTheme.displaySmall?.copyWith(
-                      fontSize: 18,
+                      fontSize: 18.sp,
                       fontWeight: FontWeight.w900,
-                      color: theme.primaryColor,
+                      color: AppColors.primary,
                     ),
                   ),
-                  const SizedBox(height: 4),
+                  SizedBox(height: 4.h),
                   Text(
                     'Captain: ${team.captainName}',
-                    style: theme.textTheme.bodyMedium,
+                    style: theme.textTheme.bodyMedium?.copyWith(fontSize: 12.sp),
                   ),
                 ],
               ),

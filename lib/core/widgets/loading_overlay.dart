@@ -1,5 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../constants/app_colors.dart';
 
 class LoadingOverlay extends StatelessWidget {
   final Widget child;
@@ -24,34 +26,36 @@ class LoadingOverlay extends StatelessWidget {
           // Semi-transparent backdrop
           ModalBarrier(
             dismissible: false,
-            color: Colors.black.withOpacity(0.4),
+            color: Colors.black.withValues(alpha: 0.4),
           ),
           // Frosted glass spinner card
           Center(
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(16.r),
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
                 child: Container(
-                  padding: const EdgeInsets.all(24),
+                  padding: EdgeInsets.all(24.r),
                   decoration: BoxDecoration(
-                    color: theme.cardColor.withOpacity(0.85),
-                    borderRadius: BorderRadius.circular(16),
+                    color: theme.cardColor.withValues(alpha: 0.85),
+                    borderRadius: BorderRadius.circular(16.r),
                     border: Border.all(
-                      color: theme.dividerTheme.color ?? Colors.grey.withOpacity(0.2),
+                      color: theme.dividerTheme.color ?? Colors.grey.withValues(alpha: 0.2),
                     ),
                   ),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(theme.colorScheme.secondary),
+                        valueColor: const AlwaysStoppedAnimation<Color>(AppColors.secondary),
+                        strokeWidth: 4.w,
                       ),
-                      const SizedBox(height: 16),
+                      SizedBox(height: 16.h),
                       Text(
                         message,
                         style: theme.textTheme.bodyMedium?.copyWith(
                           fontWeight: FontWeight.w600,
+                          fontSize: 14.sp,
                         ),
                       ),
                     ],
